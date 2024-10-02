@@ -23,6 +23,9 @@ TEST(BasicTest, HelloWorldTest) {
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
 
+  auto* leak = new float(42);
+  cout << *leak << endl;
+
   // Process custom test args
   for (int i = 1; i < argc; ++i) {
     std::string arg(argv[i]);

@@ -5,8 +5,11 @@ enable_testing()
 
 project(polyscope-tests)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fsanitize=address")
-set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} /fsanitize=address")
+# set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+# set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+
+# add_compile_options(-fsanitize=address)
+# add_link_options(-fsanitize=address)
 
 ### Configure output locations
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -128,7 +131,9 @@ target_compile_definitions(imgui PUBLIC IMGUI_DISABLE_OBSOLETE_FUNCTIONS)
 
 if(SPLIT_TESTS)
   include(GoogleTest)
-  gtest_discover_tests(polyscope-test EXTRA_ARGS backend=openGL3_glfw)
+  # gtest_discover_tests(polyscope-test EXTRA_ARGS backend=openGL3_glfw)
+  gtest_discover_tests(polyscope-test EXTRA_ARGS backend=openGL_mock)
 else()
-  add_test(NAME polyscope-test COMMAND $<TARGET_FILE:polyscope-test> backend=openGL3_glfw)
+  # add_test(NAME polyscope-test COMMAND $<TARGET_FILE:polyscope-test> backend=openGL3_glfw)
+  add_test(NAME polyscope-test COMMAND $<TARGET_FILE:polyscope-test> backend=openGL_mock)
 endif()
